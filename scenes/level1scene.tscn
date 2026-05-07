@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://b7am10xa4prvp"]
+
+[ext_resource type="Texture2D" uid="uid://bfkxun7kuf2m5" path="res://assets/images/starter level/background2.png" id="1_w6obf"]
+[ext_resource type="Texture2D" uid="uid://nssjuixn6etp" path="res://assets/images/starter level/thorns.png" id="2_lfd07"]
+[ext_resource type="Texture2D" uid="uid://cprruosl7g0n7" path="res://assets/images/starter level/midground2.png" id="3_fa2vo"]
+[ext_resource type="Texture2D" uid="uid://ii8aciywh8rw" path="res://assets/images/starter level/groundback.png" id="3_s5cf1"]
+[ext_resource type="Texture2D" uid="uid://c7y3o4ciale0" path="res://assets/images/starter level/foreground2.png" id="5_fa2vo"]
+[ext_resource type="PackedScene" uid="uid://b2sfjtc0bov0m" path="res://scenes/character.tscn" id="6_fa2vo"]
+[ext_resource type="Shader" uid="uid://cuvkkmc21ghna" path="res://scripts/godrays.gdshader" id="7_s5cf1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7251"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bet6o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfd07"]
+shader = ExtResource("7_s5cf1")
+shader_parameter/angle = -0.3
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.80800003838
+shader_parameter/cutoff = 0.21000005747500008
+shader_parameter/falloff = 0.6730000319675
+shader_parameter/edge_fade = 0.4910000233225
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 22.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(0.40990824, 0.42340574, 0.55952793, 1)
+shader_parameter/hdr = true
+shader_parameter/seed = 5.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1gce0"]
+distance = -49.0
+
+[sub_resource type="Environment" id="Environment_fa2vo"]
+resource_local_to_scene = true
+background_mode = 3
+background_color = Color(0.63518214, 0.22129509, 0.649159, 1)
+background_energy_multiplier = 5.72
+tonemap_mode = 1
+tonemap_white = 2.0
+glow_normalized = true
+glow_intensity = 2.93
+glow_strength = 0.75
+glow_bloom = 0.2
+glow_blend_mode = 0
+fog_light_energy = 4.79
+fog_sun_scatter = 0.61
+fog_density = 0.5421
+fog_sky_affect = 0.0
+fog_height = 170.01
+fog_height_density = 1.0247
+adjustment_contrast = 1.2
+
+[node name="Scene1" type="Node2D" unique_id=575820519]
+
+[node name="Level" type="Node2D" parent="." unique_id=565305641]
+position = Vector2(128, 72)
+
+[node name="Parallax2D" type="Parallax2D" parent="Level" unique_id=312638768]
+repeat_size = Vector2(512, 0)
+
+[node name="background" type="Sprite2D" parent="Level/Parallax2D" unique_id=1562315189]
+z_index = -5
+texture = ExtResource("1_w6obf")
+offset = Vector2(128, 0)
+
+[node name="Parallax2D2" type="Parallax2D" parent="Level" unique_id=133604368]
+scroll_scale = Vector2(0.3, 1.1)
+repeat_size = Vector2(256, 0)
+
+[node name="jagged rocks" type="Sprite2D" parent="Level/Parallax2D2" unique_id=2027713285]
+z_index = -3
+texture = ExtResource("2_lfd07")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Level" unique_id=1130770767]
+scroll_scale = Vector2(0.5, 1.05)
+repeat_size = Vector2(256, 0)
+
+[node name="ground - back" type="Sprite2D" parent="Level/Parallax2D3" unique_id=1419022321]
+z_index = -2
+material = SubResource("ShaderMaterial_u7251")
+texture = ExtResource("3_s5cf1")
+
+[node name="Parallax2D4" type="Parallax2D" parent="Level" unique_id=129906661]
+scroll_scale = Vector2(0.7, 1.025)
+repeat_size = Vector2(512, 0)
+
+[node name="ground mid" type="Sprite2D" parent="Level/Parallax2D4" unique_id=2112686552]
+z_index = -1
+texture = ExtResource("3_fa2vo")
+offset = Vector2(128, 0)
+
+[node name="Parallax2D5" type="Parallax2D" parent="Level" unique_id=1554729671]
+scroll_scale = Vector2(0.7, 1.025)
+repeat_size = Vector2(512, 0)
+
+[node name="ground front" type="Sprite2D" parent="Level/Parallax2D5" unique_id=1830239981]
+z_index = 5
+material = SubResource("ShaderMaterial_bet6o")
+texture = ExtResource("5_fa2vo")
+offset = Vector2(128, 0)
+
+[node name="silly shaders" type="ColorRect" parent="Level/Parallax2D5" unique_id=1408738999]
+material = SubResource("ShaderMaterial_lfd07")
+offset_left = -27.0
+offset_top = -84.0
+offset_right = 153.0
+offset_bottom = 70.0
+color = Color(0.71521115, 0.5570738, 0.898997, 1)
+
+[node name="Hitboxes" type="Node" parent="." unique_id=1506488543]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Hitboxes" unique_id=1551106863]
+position = Vector2(128, 71)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/StaticBody2D" unique_id=349335213]
+position = Vector2(-2, 1)
+shape = SubResource("WorldBoundaryShape2D_1gce0")
+
+[node name="CharacterBody2D" parent="." unique_id=1219387447 instance=ExtResource("6_fa2vo")]
+use_parent_material = true
+position = Vector2(128, 77)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1909206596]
+position = Vector2(-1, 0)
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 144
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="silly lighting" type="WorldEnvironment" parent="." unique_id=156321585]
+environment = SubResource("Environment_fa2vo")

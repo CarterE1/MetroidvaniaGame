@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://b4sngrl20l4e"]
+
+[ext_resource type="PackedScene" uid="uid://b2sfjtc0bov0m" path="res://scenes/character.tscn" id="1_f80ug"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1x4t5"]
+size = Vector2(256, 22)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jc16n"]
+frequency = 0.02
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kqauj"]
+width = 256
+height = 22
+noise = SubResource("FastNoiseLite_jc16n")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3aps5"]
+diffuse_texture = SubResource("NoiseTexture2D_kqauj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij7pg"]
+size = Vector2(256, 22)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ymrf6"]
+size = Vector2(32, 122)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nbd06"]
+width = 32
+height = 122
+noise = SubResource("FastNoiseLite_jc16n")
+seamless = true
+invert = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_k2dah"]
+diffuse_texture = SubResource("NoiseTexture2D_nbd06")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyda1"]
+size = Vector2(32, 122)
+
+[node name="Node2D" type="Node2D" unique_id=2084358514]
+
+[node name="CharacterBody2D" parent="." unique_id=1219387447 instance=ExtResource("1_f80ug")]
+use_parent_material = true
+position = Vector2(128, 77)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=2141799573]
+position = Vector2(-1, 0)
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 144
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="LevelStuff" type="Node" parent="." unique_id=1420046327]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="LevelStuff" unique_id=2096940382]
+position = Vector2(127.99999, 133)
+mesh = SubResource("QuadMesh_1x4t5")
+texture = SubResource("CanvasTexture_3aps5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelStuff/MeshInstance2D" unique_id=996156312]
+position = Vector2(-127.99999, -133)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStuff/MeshInstance2D/StaticBody2D" unique_id=1865872268]
+position = Vector2(128, 133)
+shape = SubResource("RectangleShape2D_ij7pg")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="LevelStuff" unique_id=1662442795]
+position = Vector2(240, 61)
+mesh = SubResource("QuadMesh_ymrf6")
+texture = SubResource("CanvasTexture_k2dah")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="LevelStuff/MeshInstance2D2" unique_id=474223328]
+position = Vector2(-240, -61)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStuff/MeshInstance2D2/StaticBody2D2" unique_id=2124399789]
+position = Vector2(240, 61)
+shape = SubResource("RectangleShape2D_eyda1")
